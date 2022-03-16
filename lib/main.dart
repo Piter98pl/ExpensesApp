@@ -6,7 +6,6 @@ import './transaction.dart';
 
 void main() {
   runApp(MyApp());
-  initializeDateFormatting('pl', null);
 }
 
 class MyApp extends StatelessWidget {
@@ -36,12 +35,13 @@ class MyHomePage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('pl', null);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Kalkulator wydatków'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
             width: double.infinity,
@@ -51,6 +51,26 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
+          Card(
+              elevation: 5,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Tytuł'),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Kwota'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Dodaj wydatek'),
+                      textColor: Colors.blue,
+                    )
+                  ],
+                ),
+              )),
           Column(
             children: transcations.map((transcation) {
               return Card(
@@ -91,7 +111,7 @@ class MyHomePage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 5),
                           child: Text(
-                            DateFormat('yMMMMd', 'pl').format(transcation.date),
+                            DateFormat('yMMMEd', 'pl').format(transcation.date),
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
