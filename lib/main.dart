@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import './transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  initializeDateFormatting('pl', null);
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -52,12 +57,47 @@ class MyHomePage extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      child: Text(transcation.amount.toString()),
+                      padding: EdgeInsets.all(10),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        border: Border.all(
+                          color: Colors.blue,
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        '${transcation.amount} zł', //interpolacja stringa, pewnie miejsce w strungu zostaje zastąpione wartością za pomocą znaku $ oraz {}
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Colors.blue),
+                      ),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(transcation.title),
-                        Text(transcation.date.toString())
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          child: Text(
+                            transcation.title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.black),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          child: Text(
+                            DateFormat('yMMMMd', 'pl').format(transcation.date),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        )
                       ],
                     )
                   ],
