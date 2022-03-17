@@ -33,6 +33,12 @@ class MyHomePage extends StatelessWidget {
       date: DateTime.now(),
     ),
   ];
+
+  // String titleInput; //input values are always Strings by default
+  // String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pl', null);
@@ -59,12 +65,21 @@ class MyHomePage extends StatelessWidget {
                   children: [
                     TextField(
                       decoration: InputDecoration(labelText: 'Tytuł'),
+                      controller: titleController,
+                      // onChanged: (val) {
+                      //   titleInput = val;
+                      // },
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Kwota'),
+                      controller: amountController,
+                      // onChanged: (val) => amountInput = val,
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(titleController.text);
+                        print(amountController.text);
+                      },
                       child: Text('Dodaj wydatek'),
                       textColor: Colors.blue,
                     )
@@ -88,7 +103,7 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        '${transcation.amount} zł', //interpolacja stringa, pewnie miejsce w strungu zostaje zastąpione wartością za pomocą znaku $ oraz {}
+                        '${transcation.amount} zł', //interpolacja stringa, pewne miejsce w stringu zostaje zastąpione wartością za pomocą znaku $ oraz {}
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
