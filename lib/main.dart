@@ -31,18 +31,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Kalkulator wydatków'),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              child: Text('Tutaj będzie wykres :)'),
-              elevation: 5,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                child: Text('Tutaj będzie wykres :)'),
+                elevation: 5,
+              ),
             ),
-          ),
-          UserTransactions(),
-        ],
+            UserTransactions(),
+          ],
+        ),
       ),
     );
   }
