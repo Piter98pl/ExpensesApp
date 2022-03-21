@@ -13,7 +13,7 @@ class NewTransaction extends StatelessWidget {
     final enteredAmount = double.parse(amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
-      return; //return stops the function execution
+      return; //return stops the function execution, it means code after return won't be reached
     }
     addTransaction(
       enteredTitle,
@@ -32,7 +32,9 @@ class NewTransaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Tytuł'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) =>
+                  submitData(), //anonymous function where we get that value that onSubmited gives us
+              // adding (_) is a kind of convention to signal i get an argument but i don't care about it here, i have to accept it but i don't plan on using it
               // onChanged: (val) {
               //   titleInput = val;
               // },
