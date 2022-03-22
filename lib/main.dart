@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/transaction_list.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import './widgets/new_transaction.dart';
@@ -16,7 +13,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Kalkulator wydatków',
+      // this is the title you see when the app is in background mode, in the task manager and so on
+      theme: ThemeData(
+        // theme allows you to set up a global application-wide theme
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.blue,
+        ).copyWith(
+          secondary: Colors.amber,
+        ),
+        //primary swatch is based on one single color but it automatically generates different shades(odcienie) of that color automatically behind the scenes, all this shades are generated on that one color you pass there
+        //floatingButton by default take secondary color  as primary
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              //title theme for the rest of the app
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.normal,
+                fontSize: 22,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          //title theme for the app bar
+          titleTextStyle: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 24,
+              fontWeight: FontWeight.normal),
+        ),
+        // we assign new textTheme for our AppBar, so that all text elements in the AppBar receive that theme and we based it on the default textTheme, so that we don't have to overwrite everything like font sizes and so on,
+        //but we use default texttheme and copy that with some overwritten values
+        //now with that we are using the basic textTheme with our own settings mixed in and we apply that to all texts in AppBar
+      ),
       home: MyHomePage(),
     );
   }
@@ -31,18 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
   // String titleInput; //input values are always Strings by default
 
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 'tx1',
-      title: 'Odżywka białkowa',
-      amount: 42.50,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'tx2',
-      title: 'Kreatyna',
-      amount: 27.50,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 'tx1',
+    //   title: 'Odżywka białkowa',
+    //   amount: 42.50,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 'tx2',
+    //   title: 'Kreatyna',
+    //   amount: 27.50,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTransaction(String transactionTitle, double transactionAmount) {
@@ -76,7 +103,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kalkulator wydatków'),
+        title: Text(
+          'Kalkulator wydatków',
+          style: TextStyle(fontFamily: 'OpenSans'),
+        ),
         actions: [
           IconButton(
             onPressed: () => _startAddNewTransaction(
