@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import './widgets/new_transaction.dart';
-import './models/transaction.dart';
 import './widgets/transaction_list.dart';
+import './widgets/chart.dart';
+import './models/transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -72,6 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((transaction) {
+      return transaction.date.isAfter(
+        //date is a datetime object and there Dart gives us and isAfter method, only is transaction.date is after date that we pass in isAfter object, this expresion return true and this transaction will be includedd in our _recentTransactions
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String transactionTitle, double transactionAmount) {
     final newTransaction = Transaction(
       title: transactionTitle,
@@ -119,14 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('Tutaj będzie wykres :)'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),
