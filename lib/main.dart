@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
@@ -14,6 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('pl'),
+        const Locale('en'),
+      ],
       title: 'Kalkulator wydatków',
       // this is the title you see when the app is in background mode, in the task manager and so on
       theme: ThemeData(
@@ -27,13 +37,13 @@ class MyApp extends StatelessWidget {
         //floatingButton by default take secondary color  as primary
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-              //title theme for the rest of the app
-              headline6: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.normal,
-                fontSize: 22,
-              ),
+            //title theme for the rest of the app
+            headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontWeight: FontWeight.normal,
+              fontSize: 22,
             ),
+            button: TextStyle(color: Colors.white)),
         appBarTheme: AppBarTheme(
           //title theme for the app bar
           titleTextStyle: TextStyle(
@@ -84,11 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String transactionTitle, double transactionAmount) {
+  void _addNewTransaction(
+      String transactionTitle, double transactionAmount, DateTime chosenDate) {
     final newTransaction = Transaction(
       title: transactionTitle,
       amount: transactionAmount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
     // it's final because here I create it with the values that are passed into this method so it is created based on value which i don't know at the point of time I'm writing the code , hence const can't be used here but I can use final because once that transaction has been created with these dynamic values, it will not change again
