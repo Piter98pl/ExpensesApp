@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,
         ).copyWith(
-          secondary: Colors.amber,
+          secondary: Color.fromARGB(255, 108, 164, 238),
         ),
+        //errorColor: Colors.red,  its red by default
         //primary swatch is based on one single color but it automatically generates different shades(odcienie) of that color automatically behind the scenes, all this shades are generated on that one color you pass there
         //floatingButton by default take secondary color  as primary
         fontFamily: 'Quicksand',
@@ -120,6 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((transaction) => transaction.id == id);
+      //we have to return true if is is the element we want to remove
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pl', null);
@@ -143,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
