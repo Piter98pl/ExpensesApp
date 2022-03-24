@@ -29,11 +29,13 @@ class Chart extends StatelessWidget {
       }
 
       return {
-        'day': DateFormat.E().format(weekDay), //.substring(0, 1),
+        'day':
+            DateFormat('E', 'PL').format(weekDay).substring(0, 2).toUpperCase(),
         'amount': totalSum,
       };
       //in this function which we pass as a second argument to generate(), we return map, because i have a list of maps, so we can return something with curly braces to create a map
-    });
+    }).reversed.toList();
+    //reverse gives us a new iterable so we can then call toList on that and now we get a reversed list
   }
 
   // 0.0 is a starting value in our second argument we pass to fold we have to return new value which will be added to this starting value

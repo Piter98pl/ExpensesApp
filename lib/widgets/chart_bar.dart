@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/chart.dart';
 
 class ChartBar extends StatelessWidget {
   final String label;
@@ -12,12 +11,18 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FittedBox(child: Text('${spendingAmount.toStringAsFixed(0)} zł')),
-        //toStringAsFixes(0) removes decimal places and i only show rounded integer value
-        SizedBox(height: 4),
         Container(
-          height: 60,
-          width: 10,
+          height:
+              20, // now the text at the top will always have a height od 20 no matter how much height it needs
+          child: FittedBox(
+            child: Text('${spendingAmount.toStringAsFixed(0)} zł'),
+          ),
+        ),
+        //toStringAsFixes(0) removes decimal places and i only show rounded integer value
+        SizedBox(height: 5),
+        Container(
+          height: 70,
+          width: 14,
           child: Stack(children: [
             Container(
               decoration: BoxDecoration(
@@ -40,8 +45,13 @@ class ChartBar extends StatelessWidget {
             )
           ]),
         ),
-        SizedBox(height: 4),
-        Text(label),
+        SizedBox(height: 5),
+        Container(
+          height: 14,
+          child: FittedBox(
+            child: Text(label),
+          ),
+        ),
       ],
     );
   }
